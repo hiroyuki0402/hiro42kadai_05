@@ -77,5 +77,5 @@ public enum CheckingPatternType {
 }
 public enum AlertMessage: String {
     case ifBlank = "割る数を入力してください",
-         ifNumbers = "割るかずには0を入力しないで下さい"
+         ifNumbers = "割る数には0を入力しないで下さい"
 }
