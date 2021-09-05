@@ -24,6 +24,9 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="De1-lX-XkM"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G37-9H-6jq">
                                 <rect key="frame" x="158" y="61" width="86" height="34"/>
@@ -34,6 +37,9 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="QI2-xw-RxL"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="÷" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Rg-er-thc">
                                 <rect key="frame" x="124" y="68" width="20" height="20"/>
@@ -51,7 +57,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="BCF-b4-htx"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -69,8 +75,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="A2j-6f-g6O" secondAttribute="trailing" constant="170" id="00f-EI-3Ps"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7yw-Fj-v2g" secondAttribute="trailing" constant="233" id="3Am-6C-lSu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="A2j-6f-g6O" secondAttribute="trailing" constant="170" id="00f-EI-3Ps"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="7yw-Fj-v2g" secondAttribute="trailing" constant="233" id="3Am-6C-lSu"/>
                             <constraint firstItem="G37-9H-6jq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="17" id="7u0-e9-Q1V"/>
                             <constraint firstItem="7yw-Fj-v2g" firstAttribute="top" secondItem="Fbo-J6-aef" secondAttribute="bottom" constant="43" id="GG6-Et-XHt"/>
                             <constraint firstItem="Fbo-J6-aef" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="17" id="Ipi-xp-Uvy"/>
@@ -91,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="123.88392857142857"/>
+            <point key="canvasLocation" x="6" y="124"/>
         </scene>
     </scenes>
 </document>

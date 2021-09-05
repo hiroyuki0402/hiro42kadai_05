@@ -7,68 +7,75 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet private var textField01: UITextField!
+    @IBOutlet private var textField02: UITextField!
+    @IBOutlet private var resultLabel: UILabel!
+    private var isCheck = true
 
-    
-    @IBOutlet var textField01: UITextField!
-    @IBOutlet var textField02: UITextField!
-    @IBOutlet var resultLabel: UILabel!
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        delegate()
-        // Do any additional setup after loading the view.
+    // MARK: METHODS
+    @IBAction private func calculationButton(_ sender: Any) {
+        updateLabel(targetLabel: resultLabel,
+                    setString: calculate(textEntered01: textField01.text ?? "",
+                                          textEntered02: textField02.text ?? ""))
     }
 
-    
-    
-    @IBAction func calculationButton(_ sender: Any) {
-        
-        
-        guard let val01 = textField01.text as NSString? else { alert(message: "割る数を入力してください")
-            return
-        }
-        let newVal01 = val01.doubleValue
-        
-        guard let val02 = textField02.text as NSString? else { alert(message: "割る数を入力してください")
-            return
-        }
-        let newVal02 = val02.doubleValue
-
-        if newVal02 == 0{
-            alert(message: "割るかずには0を入力しないで下さい")
-            return
+    private func checkingTheValue(checkPattern: CheckingPatternType,
+                                  textEntered: String = "",
+                                  alertTitle: String = "課題5",
+                                  alertMsg: String,
+                                  actionTitle: String = "OK") {
+        let inputtedText = textEntered
+        let alert = UIAlertController(title: alertTitle, message: alertMsg, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: actionTitle, style: .default) { _ in
         }
 
-        let result = newVal01 / newVal02
-    
-        resultLabel.text = String(result)
-        //メモ
-        //String(format:"%.3f", )桁数を3桁で表示
-    }
-    
-    private func alert(AcTitel:String = "課題5",message:String,actionTitle:String = "OK"){
-        let alert = UIAlertController(title: AcTitel, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: actionTitle, style: .default) { okAction in
-            self.textField02.text = ""
+        switch checkPattern {
+        case .ifBlank:
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+
+        case .ifNumbers:
+            guard Double(inputtedText) != 0 else {
+                alert.addAction(okAction)
+                present(alert, animated: true, completion: nil)
+                isCheck = false
+                return
+            }
         }
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
     }
-    
-    
-    private func delegate(){
-        textField01.delegate = self
-        textField02.delegate = self
+
+    /// 計算処理 or アラート表示
+    /// return: 計算結果 or 空白
+    private func calculate(textEntered01: String, textEntered02: String) -> String {
+        if textEntered01 != "" && textEntered02 != "" {
+            // 空白ではなかった場合
+            checkingTheValue(checkPattern: .ifNumbers,
+                             textEntered: textEntered02,
+                             alertMsg: AlertMessage.ifNumbers.rawValue)
+            // 計算
+            let result = atof(textEntered01) / atof(textEntered02)
+            return  isCheck ? String(result) : ""
+        } else {
+            // 空白だった場合
+            checkingTheValue(checkPattern: .ifBlank,
+                             alertMsg: AlertMessage.ifBlank.rawValue)
+            return ""
+        }
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
+    private func updateLabel(targetLabel: UILabel, setString: String) {
+        targetLabel.text = setString
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
 }
 
+public enum CheckingPatternType {
+    case ifBlank,
+         ifNumbers
+}
+public enum AlertMessage: String {
+    case ifBlank = "割る数を入力してください",
+         ifNumbers = "割るかずには0を入力しないで下さい"
+}
