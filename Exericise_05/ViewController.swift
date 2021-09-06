@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: METHODS
     @IBAction private func calculationButton(_ sender: Any) {
+        isCheck = true
         updateLabel(targetLabel: resultLabel,
                     setString: calculate(textEntered01: textField01.text ?? "",
                                          textEntered02: textField02.text ?? ""))
@@ -55,6 +56,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                              alertMsg: AlertMessage.ifNumbers.rawValue)
             // 計算
             let result = Double(textEntered01)! / Double(textEntered02)!
+            print(result)
             return  isCheck ? String(result) : ""
         } else {
             // 空白だった場合
