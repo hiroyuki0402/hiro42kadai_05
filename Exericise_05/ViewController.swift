@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction private func calculationButton(_ sender: Any) {
         updateLabel(targetLabel: resultLabel,
                     setString: calculate(textEntered01: textField01.text ?? "",
-                                          textEntered02: textField02.text ?? ""))
+                                         textEntered02: textField02.text ?? ""))
     }
 
     private func checkingTheValue(checkPattern: CheckingPatternType,
@@ -49,12 +49,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /// return: 計算結果 or 空白
     private func calculate(textEntered01: String, textEntered02: String) -> String {
         if textEntered01 != "" && textEntered02 != "" {
-            // 空白ではなかった場合
+            // 空白ではなかった場合且つ数字のチェック
             checkingTheValue(checkPattern: .ifNumbers,
                              textEntered: textEntered02,
                              alertMsg: AlertMessage.ifNumbers.rawValue)
             // 計算
-            let result = atof(textEntered01) / atof(textEntered02)
+            let result = Double(textEntered01)! / Double(textEntered02)!
             return  isCheck ? String(result) : ""
         } else {
             // 空白だった場合
@@ -63,6 +63,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return ""
         }
     }
+    // labelのテキスト更新
     private func updateLabel(targetLabel: UILabel, setString: String) {
         targetLabel.text = setString
     }
