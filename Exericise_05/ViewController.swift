@@ -21,23 +21,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                          textEntered02: textField02.text ?? ""))
     }
 
-    private func checkingTheValue(checkPattern: CheckingPatternType,
+    private func checkingTheValue(checkPatternAndAlertMsg: CheckingPatternTypeAndAlertMessage,
                                   textEntered: String = "",
                                   alertTitle: String = "課題5",
-                                  alertMsg: String,
                                   actionTitle: String = "OK") {
-        let inputtedText = textEntered
-        let alert = UIAlertController(title: alertTitle, message: alertMsg, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: actionTitle, style: .default) { _ in
-        }
+        let checkingTextEntered = textEntered
+        let alert = UIAlertController(title: alertTitle,
+                                      message: checkPatternAndAlertMsg.setAlerMessage(checkPatternAndAlertMsg),
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: actionTitle, style: .default)
 
-        switch checkPattern {
+        switch checkPatternAndAlertMsg {
         case .ifBlank:
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
 
         case .ifNumbers:
-            guard Double(inputtedText) != 0 else {
+            guard Double(checkingTextEntered) != 0 else {
                 alert.addAction(okAction)
                 present(alert, animated: true, completion: nil)
                 isCheck = false
@@ -51,17 +51,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     private func calculate(textEntered01: String, textEntered02: String) -> String {
         if textEntered01 != "" && textEntered02 != "" {
             // 空白ではなかった場合且つ数字のチェック
-            checkingTheValue(checkPattern: .ifNumbers,
-                             textEntered: textEntered02,
-                             alertMsg: AlertMessage.ifNumbers.rawValue)
+            checkingTheValue(checkPatternAndAlertMsg: .ifNumbers,
+                             textEntered: textEntered02)
             // 計算
             let result = Double(textEntered01)! / Double(textEntered02)!
-            print(result)
             return  isCheck ? String(result) : ""
         } else {
             // 空白だった場合
-            checkingTheValue(checkPattern: .ifBlank,
-                             alertMsg: AlertMessage.ifBlank.rawValue)
+            checkingTheValue(checkPatternAndAlertMsg: .ifBlank)
             return ""
         }
     }
@@ -74,11 +71,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-public enum CheckingPatternType {
-    case ifBlank,
-         ifNumbers
-}
-public enum AlertMessage: String {
+public enum CheckingPatternTypeAndAlertMessage: String {
     case ifBlank = "割る数を入力してください",
          ifNumbers = "割る数には0を入力しないで下さい"
+
+    func setAlerMessage(_ : CheckingPatternTypeAndAlertMessage) -> String {
+        switch self {
+        case .ifBlank:
+            return self.rawValue
+        case .ifNumbers:
+            return self.rawValue
+        }
+    }
 }
