@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
 
+    // 異常値のチェック・計算・ラベル表示に専念するメソッド
     private func calculate(textEntered01: String, textEntered02: String) {
         guard let number1 = Double(textEntered01) else {
             presentAlert(message: "割られる数を入力してください")
@@ -41,6 +42,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         resultLabel.text = String(number1 / number2)
     }
 
+    // アラート表示に専念するメソッド
     private func presentAlert(message: String) {
         let alert = UIAlertController(title: "課題5",
                                       message: message,
