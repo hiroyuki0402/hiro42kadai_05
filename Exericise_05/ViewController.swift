@@ -16,9 +16,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // MARK: METHODS
     @IBAction private func calculationButton(_ sender: Any) {
         isCheck = true
-        updateLabel(targetLabel: resultLabel,
-                    setString: calculate(textEntered01: textField1.text ?? "",
-                                         textEntered02: textField2.text ?? ""))
+
+        resultLabel.text = calculate(textEntered01: textField1.text ?? "",
+                                     textEntered02: textField2.text ?? "")
     }
 
     private func checkingTheValue(checkPatternAndAlertMsg: String,
@@ -58,10 +58,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return ""
         }
     }
-    // labelのテキスト更新
-    private func updateLabel(targetLabel: UILabel, setString: String) {
-        targetLabel.text = setString
-    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
