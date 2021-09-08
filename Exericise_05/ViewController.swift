@@ -8,8 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet private var textField01: UITextField!
-    @IBOutlet private var textField02: UITextField!
+    @IBOutlet private var textField1: UITextField!
+    @IBOutlet private var textField2: UITextField!
     @IBOutlet private var resultLabel: UILabel!
     private var isCheck = true
 
@@ -17,33 +17,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction private func calculationButton(_ sender: Any) {
         isCheck = true
         updateLabel(targetLabel: resultLabel,
-                    setString: calculate(textEntered01: textField01.text ?? "",
-                                         textEntered02: textField02.text ?? ""))
+                    setString: calculate(textEntered01: textField1.text ?? "",
+                                         textEntered02: textField2.text ?? ""))
     }
 
-    private func checkingTheValue(checkPatternAndAlertMsg: CheckingPatternTypeAndAlertMessage,
+    private func checkingTheValue(checkPatternAndAlertMsg: String,
                                   textEntered: String = "",
                                   alertTitle: String = "課題5",
                                   actionTitle: String = "OK") {
         let checkingTextEntered = textEntered
         let alert = UIAlertController(title: alertTitle,
-                                      message: checkPatternAndAlertMsg.setAlerMessage(checkPatternAndAlertMsg),
+                                      message: checkPatternAndAlertMsg,
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: actionTitle, style: .default)
 
-        switch checkPatternAndAlertMsg {
-        case .ifBlank:
+        guard Double(checkingTextEntered) != 0 else {
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
-
-        case .ifNumbers:
-            guard Double(checkingTextEntered) != 0 else {
-                alert.addAction(okAction)
-                present(alert, animated: true, completion: nil)
-                isCheck = false
-                return
-            }
+            isCheck = false
+            return
         }
+
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 
     /// 計算処理 or アラート表示
@@ -51,14 +47,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     private func calculate(textEntered01: String, textEntered02: String) -> String {
         if textEntered01 != "" && textEntered02 != "" {
             // 空白ではなかった場合且つ数字のチェック
-            checkingTheValue(checkPatternAndAlertMsg: .ifNumbers,
+            checkingTheValue(checkPatternAndAlertMsg: ErrorMessage.ifNumbers,
                              textEntered: textEntered02)
             // 計算
             let result = Double(textEntered01)! / Double(textEntered02)!
             return  isCheck ? String(result) : ""
         } else {
             // 空白だった場合
-            checkingTheValue(checkPatternAndAlertMsg: .ifBlank)
+            checkingTheValue(checkPatternAndAlertMsg: ErrorMessage.ifBlank)
             return ""
         }
     }
@@ -71,16 +67,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-public enum CheckingPatternTypeAndAlertMessage: String {
-    case ifBlank = "割る数を入力してください",
-         ifNumbers = "割る数には0を入力しないで下さい"
-
-    func setAlerMessage(_ : CheckingPatternTypeAndAlertMessage) -> String {
-        switch self {
-        case .ifBlank:
-            return self.rawValue
-        case .ifNumbers:
-            return self.rawValue
-        }
-    }
+enum ErrorMessage {
+    static let ifBlank = "割る数を入力してください"
+    static let ifNumbers = "割る数には0を入力しないで下さい"
 }
