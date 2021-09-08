@@ -47,14 +47,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     private func calculate(textEntered01: String, textEntered02: String) -> String {
         if textEntered01 != "" && textEntered02 != "" {
             // 空白ではなかった場合且つ数字のチェック
-            checkingTheValue(checkPatternAndAlertMsg: ErrorMessage.ifNumbers,
+            checkingTheValue(checkPatternAndAlertMsg: "割る数には0を入力しないで下さい",
                              textEntered: textEntered02)
             // 計算
             let result = Double(textEntered01)! / Double(textEntered02)!
             return  isCheck ? String(result) : ""
         } else {
             // 空白だった場合
-            checkingTheValue(checkPatternAndAlertMsg: ErrorMessage.ifBlank)
+            checkingTheValue(checkPatternAndAlertMsg: "割る数を入力してください")
             return ""
         }
     }
@@ -62,9 +62,4 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-}
-
-enum ErrorMessage {
-    static let ifBlank = "割る数を入力してください"
-    static let ifNumbers = "割る数には0を入力しないで下さい"
 }
