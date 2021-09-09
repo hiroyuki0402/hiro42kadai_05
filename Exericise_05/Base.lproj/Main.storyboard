@@ -92,8 +92,8 @@
                     </view>
                     <connections>
                         <outlet property="resultLabel" destination="A2j-6f-g6O" id="cRV-sR-pvy"/>
-                        <outlet property="textField01" destination="Fbo-J6-aef" id="Na0-hx-6fQ"/>
-                        <outlet property="textField02" destination="G37-9H-6jq" id="0Ok-LO-hQb"/>
+                        <outlet property="textField1" destination="Fbo-J6-aef" id="Na0-hx-6fQ"/>
+                        <outlet property="textField2" destination="G37-9H-6jq" id="0Ok-LO-hQb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
